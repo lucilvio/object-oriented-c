@@ -20,7 +20,7 @@ typedef struct Circle
 {
     Shape base;
 
-    int radious;    
+    int radius;    
 } Circle;
 
 void squareDisplay(void* this)
@@ -41,13 +41,13 @@ Square* _Square(int x, int y, int z)
 void circleDisplay(void* this)
 {
     Circle* circle = this;
-    printf("I'm a circle. X = %d, Y = %d, Radious = %d", circle->base.x, circle->base.y, circle->radious);
+    printf("I'm a circle. X = %d, Y = %d, Radious = %d", circle->base.x, circle->base.y, circle->radius);
 }
 
 Circle* _Circle(int x, int y, int z)
 {
     Circle* circle = (Circle*)malloc(sizeof(Circle));
-    circle->radious = 200;
+    circle->radius = 200;
     circle->base = (Shape) { x, y };
     circle->base.display = circleDisplay;
 
