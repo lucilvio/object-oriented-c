@@ -1,67 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct Shape
-{
-    int x;
-    int y;
-
-    void (*display)(void* this);
-} Shape;
-
-typedef struct Square
-{
-    Shape base;
-    
-    int z;
-} Square;
-
-typedef struct Circle
-{
-    Shape base;
-
-    int radius;    
-} Circle;
-
-void squareDisplay(void* this)
-{
-    Square* square = this;
-    printf("I'm a square. X = %d, Y = %d, Z = %d", square->base.x, square->base.y, square->z);
-}
-
-Square* _Square(int x, int y, int z)
-{
-    Square* square = (Square*)malloc(sizeof(Square));
-    square->base = (Shape) { x, y };
-    square->base.display = squareDisplay;
-
-    return square;
-}
-
-void circleDisplay(void* this)
-{
-    Circle* circle = this;
-    printf("I'm a circle. X = %d, Y = %d, Radious = %d", circle->base.x, circle->base.y, circle->radius);
-}
-
-Circle* _Circle(int x, int y, int z)
-{
-    Circle* circle = (Circle*)malloc(sizeof(Circle));
-    circle->radius = 200;
-    circle->base = (Shape) { x, y };
-    circle->base.display = circleDisplay;
-
-    return circle;
-}
+#include "shape.h"
 
 int main()
 {
-    Square* square = _Square(5, 5, 5);
-    Circle* circle = _Circle(2, 3, 1);
+    Square* square = _square(5, 5, 8);
+    square->displaySide(square);
+
+    Circle* circle = _circle(2, 3, 200);
+    circle->displayRadius(circle);
 
     Shape* shape = (Shape*)square;
 
     shape->display(shape);
+
+    shape = (Shape*)circle;
+
+    shape->display(shape);
+    
+    __square(square);
+    __circle(circle);
 
     return 0;
 }
